@@ -1,0 +1,42 @@
+hint = "Hint: Who was the 16th President of the United States"
+print(hint)
+i = 0
+word_chosen = "abraham lincoln"
+filled_in = "_" * len(word_chosen)
+row = []
+indices = []
+
+for p in range(len(word_chosen)):
+    if word_chosen[p] == " ":
+        filled_in = filled_in[:p] + " " + filled_in[p + 1:]
+
+print(filled_in)
+
+while i <= 5:
+    your_guess = input("What is your guess? ").lower()
+    row.append(your_guess)
+
+    if row.count(your_guess) > 1:
+        print("You have already guessed that character. Try again.")
+        row.remove(your_guess)
+    print(f"you have guessed {row}")
+
+    if your_guess in word_chosen:
+        for ind in range(len(word_chosen)):
+            if word_chosen[ind] == your_guess[0]:
+                indices.append(ind)
+        for parts in indices:
+            filled_in = filled_in[:parts] + your_guess + filled_in[parts + len(your_guess):]
+        print(filled_in)
+        i += 0
+        indices.clear()
+    else:
+        print(filled_in)
+        i += 1
+
+    tries_left = 5 - i
+    print(f"You have {tries_left} tries left.")
+
+    if filled_in == word_chosen.lower():
+        print("You win!!")
+        break
